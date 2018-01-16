@@ -1,4 +1,4 @@
-function [res] = SAKE_RES_Calculator(ranknumber,DATA,DATAc,slice_n,mask_n)
+function [res] = SAKE_RES_Calculator(ranknumber,DATA,DATAc,slice_n,mask_n,imagesavepath)
 %UNTITLED2 计算SAKE 的residual,从而可以借助退火算法帮助确定最佳的rank number
 %   SAKE本身性质相关的变量，留在函数内部；无关的移走
   %% Prepare DATA
@@ -56,6 +56,6 @@ function [res] = SAKE_RES_Calculator(ranknumber,DATA,DATAc,slice_n,mask_n)
       %  saveas(gcf,['E:\Yilong DATA\Results Image\slice_' num2str(slice_n) '_mask_' num2str(mask_n) '_rank_' num2str(floor(wnthresh*prod(ksize))) '.png']);     
          res = sum(sum(sos(ifft2c(DATA-reskESPIRiT))));     
          I = cat(2,sos(ifft2c(DATA-reskESPIRiT))*10,sos(resESPIRiT.*weights)) ;
-         save(['E:\Yilong DATA\Results Image\slice_' num2str(slice_n) '_mask_' num2str(mask_n) '_rank_' num2str(floor(wnthresh*prod(ksize))) '.mat'],'I');
+         save([imagesavepath 'slice_' num2str(slice_n) '_mask_' num2str(mask_n) '_rank_' num2str(floor(wnthresh*prod(ksize))) '.mat'],'I');
 end
 

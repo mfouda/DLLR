@@ -40,12 +40,12 @@ for slice_n=1
                 mid = floor((Left + Right)/2)
                 midmid = floor((mid + Right)/2)
                     if RES_rank(mid)==0
-                        [mid_area] = SAKE_RES_Calculator(mid,DATA,DATAc,slice_n,mask_n,imagesavepath);
+                        [mid_area] = SAKE_RES_Calculator(mid,DATA,DATAc,slice_n,mask_n);
                         RES_rank(mid) = mid_area;
                     else
                     end
                     if RES_rank(midmid)==0
-                        [midmid_area] = SAKE_RES_Calculator(midmid,DATA,DATAc,slice_n,mask_n,imagesavepath);
+                        [midmid_area] = SAKE_RES_Calculator(midmid,DATA,DATAc,slice_n,mask_n);
                         RES_rank(midmid) = midmid_area;
                     else
                     end
