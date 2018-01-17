@@ -6,7 +6,6 @@ addpath(genpath('F:\Yilong DATA\ESPIRiT'));
 addpath(genpath('F:\Yilong DATA\raw\2016_Nov_brain'));
 imagesavepath = 'F:\Yilong DATA\Results Image\'; 
 ranksavepath = 'F:\Yilong DATA\Results Res\';
-
 load mask_all
 load GreData
 [sx,sy,Sn,Nc]=size(gre_kxkyzc);
@@ -30,14 +29,17 @@ for slice_n=1:1:20
             DATAc = DATA.* repmat(mask,[1,1,Nc]);
             calibc = crop(DATAc,[ncalib,ncalib,Nc]);
             calibc=reshape(calibc,[lkcc,1]);
-            input_matrx(slice_n,mask_n,:)=real(calibc);   
+            input_matrx(slice_n,mask_n,:)=imag(calibc);   
       end
 end
 toc
+input_matrx=permute(input_matrx,[2 1 3]);
+input_imag=reshape(input_matrx,[80 lkcc]);
 %% 
-input_matrx=reshape(input_matrx,[80 lkcc]);
-k=input_matrx(10,:);
-k=reshape(k,[48,48,32]);
-I=sos(ifft2c(k));
-imshow(I)
-
+% k=input_matrx(9,:);
+% k=reshape(k,[48,48,32]);
+% I=sos(ifft2c(k));
+% imshow(I)
+%%
+input_imag=reshape(input_matrx,[80 lkcc]);
+save('F:\code\DLLR\DATA\input_imag.mat','input_imag')

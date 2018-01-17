@@ -1,0 +1,6 @@
+%%
+addpath(genpath('F:\code\DLLR\DATA'));
+load('input_imag.mat')
+load('input_real.mat')
+load('label.mat')
+tr=[]
