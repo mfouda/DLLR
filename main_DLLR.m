@@ -1,10 +1,19 @@
+% clc;clear;
 %%
 addpath(genpath('F:\code\DLLR\DATA'));
-load('input_imag.mat')
-load('input_real.mat')
+% load('input_matrx_real.mat')
+% load('input_matrx_imag.mat')
 load('label.mat')
-label=label - min(label)+1;
-tr=[label input_real; label input_imag];
+tr_label=repmat(label,[841,1]);
+
+tr=[tr_label real(input_matrx) imag(input_matrx)];
+% input_imag=Normalize_I(input_imag);
+% input_real=Normalize_I(input_real);
+% label=label - min(label)+1;
+% tr=[label input_real; label input_imag];
+
+% k=input_imag(9,:); k=reshape(k,[48,48,32]);I=sos(ifft2c(k));imshow(I)
+
 
 %%
 n = size(tr, 1);                    % number of samples in the dataset

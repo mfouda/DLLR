@@ -13,14 +13,14 @@ load mask_all;
 load('GreData.mat')
 %% load GreData
 % DATA
-for slice_n=1
+for slice_n=11:1:19
             gre_kxkyzc=double(gre_kxkyzc);
             [sx,sy,Sn,Nc]=size(gre_kxkyzc);
             DATA = gre_kxkyzc(:,:,slice_n,:);
             DATA = squeeze(DATA);
             DATA = DATA/max(max(max(abs(ifft2c(DATA))))) + eps;
             
-     for mask_n =1   
+     for mask_n =1:1:4   
          
             mask=mask_all(:,:,mask_n);
             mask=squeeze(mask);
