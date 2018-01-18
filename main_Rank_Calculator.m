@@ -13,7 +13,8 @@ load mask_all;
 load('GreData.mat')
 %% load GreData
 % DATA
-for slice_n=1:1:10
+
+for slice_n=11:1:19
             gre_kxkyzc=double(gre_kxkyzc);
             [sx,sy,Sn,Nc]=size(gre_kxkyzc);
             DATA = gre_kxkyzc(:,:,slice_n,:);
