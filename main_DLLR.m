@@ -1,12 +1,12 @@
-% clc;clear;
+clc;clear;
 %%
 addpath(genpath('F:\code\DLLR\DATA'));
 % load('input_matrx_real.mat')
 % load('input_matrx_imag.mat')
 load('label.mat')
+load('input_matrix.mat')
 tr_label=repmat(label,[841,1]);
-
-tr=[tr_label real(input_matrx) imag(input_matrx)];
+tr=[tr_label real(input_matrix) imag(input_matrix)];
 % input_imag=Normalize_I(input_imag);
 % input_real=Normalize_I(input_real);
 % label=label - min(label)+1;
@@ -34,3 +34,5 @@ Xtest = inputs(:, test(c));         % 1/3 of the input for testing
 Ytest = targets(test(c));           % 1/3 of the target for testing
 Ytestd = targetsd(:, test(c));      % 1/3 of the dummy variable for testing
 
+save('F:\Yilong DATA\Xtrain.mat','Xtrain');
+save('F:\Yilong DATA\Ytrain.mat','Ytrain');

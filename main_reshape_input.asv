@@ -42,7 +42,7 @@ toc
 calibc_batch_input = permute(calibc_batch_input,[2 1 4 3]); % 4 20 841 12800
 size(calibc_batch_input)
 input_matrix = reshape(calibc_batch_input,[67280 400]);
-save('F:\code\DLLR\input_matrix.mat','input_matrix');
+save('F:\code\DLLR\input_matrx_imag.mat','input_imag');
 %%
 % input_real = real(input_matrx);
 % save('F:\code\DLLR\DATA\input_matrx_real.mat','input_real','-v7.3');
