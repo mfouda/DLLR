@@ -2,25 +2,25 @@ clc
 clear
 close all;
 %% path
-addpath(genpath('F:\code\DLLR'));
+addpath(genpath('E:\Yilong DATA\code\DLLR'));
 
-addpath(genpath('F:\Yilong DATA\ESPIRiT'));
-addpath(genpath('F:\Yilong DATA\raw\2016_Nov_brain'));
-imagesavepath = 'F:\Yilong DATA\Results Image\'; 
-ranksavepath = 'F:\Yilong DATA\Results Res\';
+addpath(genpath('E:\Yilong DATA\ESPIRiT'));
+addpath(genpath('E:\Yilong DATA\raw\2016_Nov_oblique'));
+imagesavepath = 'E:\Yilong DATA\Results Image\'; 
+ranksavepath = 'E:\Yilong DATA\Results Res\';
 
 load mask_all;
 load('GreData.mat')
 %% load GreData
 % DATA
-for slice_n=1
+for slice_n=1:1:10
             gre_kxkyzc=double(gre_kxkyzc);
             [sx,sy,Sn,Nc]=size(gre_kxkyzc);
             DATA = gre_kxkyzc(:,:,slice_n,:);
             DATA = squeeze(DATA);
             DATA = DATA/max(max(max(abs(ifft2c(DATA))))) + eps;
             
-     for mask_n =1   
+     for mask_n =1:1:4   
          
             mask=mask_all(:,:,mask_n);
             mask=squeeze(mask);
