@@ -5,12 +5,18 @@ addpath(genpath('E:\Yilong DATA\code\DLLR'));
 addpath(genpath('E:\Yilong DATA\ESPIRiT'));
 addpath(genpath('E:\Yilong DATA\raw\2016_Nov_brain'));
 
+path_title='E:\Yilong DATA\';
 load mask_all
 load GreData
 [sx,sy,Sn,Nc]=size(gre_kxkyzc);
 ncalib = 48;
 ksize = [6,6]; % ESPIRiT kernel-window-size
-calibc_batch_input=zeros(20,4,400,841); %[slicenumber masknumber pixel  batchnumber]
+%calibc_batch_input=zeros(20,4,400,841); %[slicenumber masknumber pixel  batchnumber]
+batch_size = 44;
+batch_pixels =Nc *batch_size^2 ;
+batch_n = (ncalib-batch_size+1)^2;
+calibc_batch_input=zeros(20,4,batch_pixels,batch_n); %[slicenumber masknumber pixel  batchnumber]
+
 tic
 for slice_n=1:1:20
             gre_kxkyzc=double(gre_kxkyzc);
@@ -27,11 +33,12 @@ for slice_n=1:1:20
             DATAc = DATA.* repmat(mask,[1,1,Nc]);
             calibc = crop(DATAc,[ncalib,ncalib,Nc]);
           %% DATA augmentation add 
-           batch_size = 20;
+
            calibc_batch = Data_Augmentation(calibc, batch_size);
-           % calibc_batch_input(slice_n,mask_n,:,:) = reshape(calibc_batch,[12800 841]);
-           k_all= sos(calibc_batch,3);
-           calibc_batch_input(slice_n,mask_n,:,:) = reshape( k_all,[400 841]);
+            calibc_batch_input(slice_n,mask_n,:,:) = reshape(calibc_batch,[batch_pixels,batch_n]);
+           
+           %k_all= sos(calibc_batch,3);
+           %calibc_batch_input(slice_n,mask_n,:,:) = reshape( k_all,[400 841]);
        
      end
       slice_n
@@ -40,8 +47,21 @@ toc
 
 calibc_batch_input = permute(calibc_batch_input,[2 1 4 3]); % 4 20 841 12800
 size(calibc_batch_input)
-input_matrix = reshape(calibc_batch_input,[67280 400]);
-save('E:\Yilong DATA\code\DLLR\DATA\input_matrix','input_matrix');
+%save('F:\code\DLLR\input_matrix.mat','input_matrix');
+% %% normlized to 0 255
+input_matrix=reshape(calibc_batch_input,[batch_n*80 batch_pixels]);
+% %%
+input_matrix=reshape(calibc_batch_input,[batch_n*80 batch_pixels]);
+load('E:\Yilong DATA\code\DLLR\DATA\label.mat')
+label=label-min(label)+1;
+tr_label=repmat(label,[batch_n,1]);
+% tr=[tr_label real(input_matrix);
+%     tr_label imag(input_matrix)];
+Normalized_input_matrix= Normalize_P(input_matrix);
+tr=[tr_label real(Normalized_input_matrix) imag(Normalized_input_matrix)];
+%tr_input=tr(randperm(12960,3200),:);
+tr_input=tr;
+save('E:\Yilong DATA\code\DLLR\DATA\tr_input.mat','tr_input');
 %%
 % input_real = real(input_matrx);
 % save('F:\code\DLLR\DATA\input_matrx_real.mat','input_real','-v7.3');
