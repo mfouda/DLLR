@@ -1,8 +1,8 @@
 clc;clear;
 %%
 addpath(genpath('F:\code\DLLR\DATA'));
-load('tr_input.mat')
-tr=tr_input;
+
+
 % load('input_matrx_real.mat')
 % load('input_matrx_imag.mat')
 % load('label.mat')
