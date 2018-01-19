@@ -1,6 +1,7 @@
 clc;clear;
 %%
-addpath(genpath('E:\Yilong DATA\code\DLLR\DATA'));
+path_title='E:\Yilong DATA\';
+addpath(genpath([path_title 'code\DLLR\DATA']));
 load('tr_input.mat')
 tr=tr_input;
 % load('input_matrx_real.mat')
