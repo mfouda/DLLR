@@ -10,7 +10,7 @@ load GreData
 [sx,sy,Sn,Nc]=size(gre_kxkyzc);
 ncalib = 48;
 ksize = [6,6]; % ESPIRiT kernel-window-size
-calibc_batch_input=zeros(20,4,12800,841); %[slicenumber masknumber pixel  batchnumber]
+calibc_batch_input=zeros(20,4,400,841); %[slicenumber masknumber pixel  batchnumber]
 tic
 for slice_n=1:1:20
             gre_kxkyzc=double(gre_kxkyzc);
@@ -29,7 +29,9 @@ for slice_n=1:1:20
           %% DATA augmentation add 
            batch_size = 20;
            calibc_batch = Data_Augmentation(calibc, batch_size);
-           calibc_batch_input(slice_n,mask_n,:,:) = reshape(calibc_batch,[12800 841]);
+           % calibc_batch_input(slice_n,mask_n,:,:) = reshape(calibc_batch,[12800 841]);
+           k_all= sos(calibc_batch,3);
+           calibc_batch_input(slice_n,mask_n,:,:) = reshape( k_all,[400 841]);
        
      end
       slice_n
@@ -38,7 +40,8 @@ toc
 
 calibc_batch_input = permute(calibc_batch_input,[2 1 4 3]); % 4 20 841 12800
 size(calibc_batch_input)
-input_matrx = reshape(calibc_batch_input,[67280 12800]);
+input_matrix = reshape(calibc_batch_input,[67280 400]);
+save('E:\Yilong DATA\code\DLLR\DATA\input_matrix','input_matrix');
 %%
 % input_real = real(input_matrx);
 % save('F:\code\DLLR\DATA\input_matrx_real.mat','input_real','-v7.3');
