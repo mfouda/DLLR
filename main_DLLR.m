@@ -1,7 +1,8 @@
 clc;clear;
 %%
-path_title='E:\Yilong DATA\';
-addpath(genpath([path_title 'code\DLLR\DATA']));
+
+codepath = 'F:\code\DLLR';
+addpath(genpath(codepath));
 load('tr_input.mat')
 tr=tr_input;
 % load('input_matrx_real.mat')
@@ -12,7 +13,6 @@ tr=tr_input;
 % tr=[tr_label real(input_matrix) imag(input_matrix)];
 
 % k=input_imag(9,:); k=reshape(k,[48,48,32]);I=sos(ifft2c(k));imshow(I)
-
 
 %%
 n = size(tr, 1);                    % number of samples in the dataset

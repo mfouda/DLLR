@@ -2,19 +2,20 @@ clc
 clear
 close all;
 %% path
-addpath(genpath('E:\Yilong DATA\code\DLLR'));
+addpath(genpath('F:\Yilong DATA\code\DLLR'));
+addpath(genpath('F:\Yilong DATA\ESPIRiT'));
+addpath(genpath('F:\Yilong DATA\raw\20160127_head'));
+imagesavepath = 'F:\Yilong DATA\Results Image\'; 
+ranksavepath = 'F:\Yilong DATA\Results Res\';
 
-addpath(genpath('E:\Yilong DATA\ESPIRiT'));
-addpath(genpath('E:\Yilong DATA\raw\2016_Nov_oblique'));
-imagesavepath = 'E:\Yilong DATA\Results Image\'; 
-ranksavepath = 'E:\Yilong DATA\Results Res\';
-
-load mask_all;
-load('GreData.mat')
+load mask_all_1d;
+mask_all=mask_all_1d;
+load('Head_1_FFE_MS_3mm.mat')
+gre_kxkyzc=imgs;
 %% load GreData
 % DATA
 
-for slice_n=11:1:19
+for slice_n=1:1:64
             gre_kxkyzc=double(gre_kxkyzc);
             [sx,sy,Sn,Nc]=size(gre_kxkyzc);
             DATA = gre_kxkyzc(:,:,slice_n,:);
@@ -25,8 +26,8 @@ for slice_n=11:1:19
          
             mask=mask_all(:,:,mask_n);
             mask=squeeze(mask);
-            mask_i = (size(mask,1)-size(DATA,1))./2 ;
-            mask = imcrop(mask,[mask_i,mask_i,size(DATA,1)-1,size(DATA,1)-1]);
+%             mask_i = (size(mask,1)-size(DATA,1))./2 ;
+%             mask = imcrop(mask,[mask_i,mask_i,size(DATA,1)-1,size(DATA,1)-1]);
             DATAc = DATA.* repmat(mask,[1,1,Nc]);
           %% Calculate the up bound and lower bound
             lb=1;

@@ -1,0 +1,10 @@
+clc;clear;
+mask_all_1d=zeros(232,232,4);
+length_k=232;
+mask_all_1d(1:2:length_k,:,1)=ones(length_k./2,length_k);
+mask_all_1d(1:4:length_k,:,2)=ones(length_k./4,length_k);
+mask_all_1d(1:6:length_k,:,3)=ones(floor(length_k./6)+1,length_k);
+mask_all_1d(1:8:length_k,:,4)=ones(length_k./8,length_k);
+%%
+imshow(mask_all_1d(:,:,4));
+save('F:\code\DLLR\mask_all_1d.mat','mask_all_1d');
