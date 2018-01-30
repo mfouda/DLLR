@@ -13,7 +13,7 @@ load GreData
 ncalib = 48;
 ksize = [6,6]; % ESPIRiT kernel-window-size
 %calibc_batch_input=zeros(20,4,400,841); %[slicenumber masknumber pixel  batchnumber]
-batch_size = 44;
+batch_size = 45;
 batch_pixels =Nc *batch_size^2 ;
 batch_n = (ncalib-batch_size+1)^2;
 calibc_batch_input=zeros(20,4,batch_pixels,batch_n); %[slicenumber masknumber pixel  batchnumber]
