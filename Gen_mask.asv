@@ -11,17 +11,15 @@
 
 %% 
 lk=200;
-csize=20;
-central = (lk-csize)./2:(lk+csize)./2 -1 ;central=central';
 mask_all_randn1D=zeros(lk,lk,4);
 U2_index = randperm(lk,lk./2);
 U3_index = randperm(lk,floor(lk./3));
 mask_all_randn1D(U2_index,:,1)=ones(lk./2,lk);
 mask_all_randn1D(U3_index,:,2)=ones(floor(lk./3),lk);
-mask_all_randn1D(U2_index,:,3)=ones(lk./2,lk); mask_all_randn1D(central,central,3)=ones(csize,csize);
-mask_all_randn1D(U3_index,:,4)=ones(floor(lk./3),lk); mask_all_randn1D(central,central,4)=ones(csize,csize);
+mask_all_randn1D(U2_index,:,3)=ones(lk./2,lk); mask_all_randn1D(U2_index,:,3)
+mask_all_randn1D(U3_index,:,4)=ones(floor(lk./3),lk);
 %%
-imshow(mask_all_randn1D(:,:,4));
-save('F:\code\DLLR\mask_all_randn1D.mat','mask_all_randn1D');
+imshow(mask_all_randn1D(:,:,2));
+
   
 %%

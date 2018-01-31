@@ -23,7 +23,7 @@ exportToPPTX('new','Dimensions',[12 6], ...
 %% Add some slides
 figH = figure('Renderer','zbuffer'); mesh(peaks); view(0,0);
 
-for islide=1:5,
+for islide=1:5
     slideNum = exportToPPTX('addslide');
     fprintf('Added slide %d\n',slideNum);
     exportToPPTX('addpicture',figH);
@@ -53,7 +53,7 @@ newFile = exportToPPTX('saveandclose','example');
 % exportToPPTX('save','example');
 % exportToPPTX('close');
 
-
+%{
 %% Open presentation again
 exportToPPTX('open','example');
 
@@ -339,4 +339,5 @@ exportToPPTX('addnote','Added to the slide after using ''switchslide'' command.'
 exportToPPTX('saveandclose');
 
 fprintf('New file has been saved: <a href="matlab:open(''%s'')">%s</a>\n',newFile,newFile);
+%}
 
