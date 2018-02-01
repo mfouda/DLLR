@@ -1,7 +1,7 @@
 clc;clear;
 %%
-
-codepath = 'F:\code\DLLR';
+%codepath = 'F:\code\DLLR';
+codepath = 'E:\Yilong DATA\code\DLLR';
 addpath(genpath(codepath));
 load('tr_input.mat')
 tr=tr_input;
@@ -25,7 +25,7 @@ targets = targets';                 % transpose target
 targetsd = targetsd';               % transpose dummy variable
 
 rng(1);                             % for reproducibility
-c = cvpartition(n,'Holdout',n/16);   % hold out 1/4 of the dataset
+c = cvpartition(n,'Holdout',1/5);   % hold out 1/4 of the dataset
 
 Xtrain = inputs(:, training(c));    % 2/3 of the input for training
 Ytrain = targetsd(:, training(c));  % 2/3 of the target for training
