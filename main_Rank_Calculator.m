@@ -15,7 +15,7 @@ gre_kxkyzc=imgs;
 %% load GreData
 % DATA
 
-for slice_n=1:1:64
+for slice_n=17:1:20
             gre_kxkyzc=double(gre_kxkyzc);
             [sx,sy,Sn,Nc]=size(gre_kxkyzc);
             DATA = gre_kxkyzc(:,:,slice_n,:);
