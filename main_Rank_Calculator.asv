@@ -15,11 +15,7 @@ load('GreData.mat')
 %% load GreData
 % DATA
 
-<<<<<<< HEAD
-for slice_n=1:1:20
-=======
-for slice_n=17:1:20
->>>>>>> fe858615cc43eb49728b90f504eb30fdb4df3d42
+for slice_n=1:1:64
             gre_kxkyzc=double(gre_kxkyzc);
             [sx,sy,Sn,Nc]=size(gre_kxkyzc);
             DATA = gre_kxkyzc(:,:,slice_n,:);

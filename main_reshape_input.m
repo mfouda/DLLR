@@ -1,8 +1,12 @@
 clc
 clear
 close all;
-path_title='F:\Yilong DATA\';
-codepath = 'F:\code\DLLR';
+% path_title='F:\Yilong DATA\';
+% codepath = 'F:\code\DLLR';
+% SUSTC-computer
+path_title='E:\Yilong DATA\';
+codepath = 'E:\Yilong DATA\code\DLLR';
+
 addpath(genpath(codepath));
 addpath(genpath([path_title 'ESPIRiT']));
 addpath(genpath([path_title 'raw\2016_Nov_brain']));
@@ -14,14 +18,14 @@ load GreData
 ncalib = 48;
 ksize = [6,6]; % ESPIRiT kernel-window-size
 %calibc_batch_input=zeros(20,4,400,841); %[slicenumber masknumber pixel  batchnumber]
-batch_size = 45;
+batch_size = 44;
 batch_pixels =Nc *batch_size^2 ;
 
 batch_n = (ncalib-batch_size+1)^2;
-calibc_batch_input=zeros(20,4,batch_pixels,batch_n); %[slicenumber masknumber pixel  batchnumber]
+calibc_batch_input=zeros(15,4,batch_pixels,batch_n); %[slicenumber masknumber pixel  batchnumber]
 
 tic
-for slice_n=1:1:20
+for slice_n=1:1:16
             gre_kxkyzc=double(gre_kxkyzc);
             [sx,sy,Sn,Nc]=size(gre_kxkyzc);
             DATA = gre_kxkyzc(:,:,slice_n,:);
@@ -53,10 +57,10 @@ size(calibc_batch_input)
 %save('F:\code\DLLR\input_matrix.mat','input_matrix');
 
 % %%
-input_matrix_t=reshape(calibc_batch_input,[batch_n*80 batch_pixels]);
+input_matrix_t=reshape(calibc_batch_input,[batch_n*64   batch_pixels]);
 load([codepath '\DATA\label.mat'])
-label=label-min(label)+1;
-tr_label=repmat(label,[batch_n,1]);
+%label=label-min(label)+1;
+tr_label=repmat(label(1:64),[batch_n,1]);
 % tr=[tr_label real(input_matrix);
 %     tr_label imag(input_matrix)];
 %% Normal

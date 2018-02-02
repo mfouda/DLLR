@@ -1,7 +1,7 @@
 clc;clear;
 %%
-
-codepath = 'F:\code\DLLR';
+%codepath = 'F:\code\DLLR';
+codepath = 'E:\Yilong DATA\code\DLLR';
 addpath(genpath(codepath));
 load('tr_input.mat')
 tr=tr_input;
@@ -25,7 +25,7 @@ targets = targets';                 % transpose target
 targetsd = targetsd';               % transpose dummy variable
 
 rng(1);                             % for reproducibility
-c = cvpartition(n,'Holdout',n/16);   % hold out 1/4 of the dataset
+c = cvpartition(n,'Holdout',1/5);   % hold out 1/4 of the dataset
 
 Xtrain = inputs(:, training(c));    % 2/3 of the input for training
 Ytrain = targetsd(:, training(c));  % 2/3 of the target for training
@@ -35,3 +35,25 @@ Ytestd = targetsd(:, test(c));      % 1/3 of the dummy variable for testing
 
 % save('F:\Yilong DATA\Xtrain.mat','Xtrain');
 % save('F:\Yilong DATA\Ytrain.mat','Ytrain');
+% 
+%%
+sweep = [200:200:2000];                 % parameter values to test
+scores = zeros(length(sweep), 1);       % pre-allocation
+models = cell(length(sweep), 1);        % pre-allocation
+x = Xtrain;                             % inputs
+t = Ytrain;                             % targets
+trainFcn = 'trainscg';                  % scaled conjugate gradient
+for i = 1:length(sweep)
+    hiddenLayerSize = sweep(i);         % number of hidden layer neurons
+    net = patternnet([hiddenLayerSize 1200]);  % pattern recognition network
+    net.divideParam.trainRatio = 50/100;% 70% of data for training
+    net.divideParam.valRatio = 25/100;  % 15% of data for validation
+    net.divideParam.testRatio = 25/100; % 15% of data for testing
+    net = train(net, x, t);             % train the network
+    models{i} = net;                    % store the trained network
+    p = net(Xtest);                     % predictions
+    [~, p] = max(p);                    % predicted labels
+    scores(i) = sum(Ytest == p) /...    % categorization accuracy
+        length(Ytest);
+end
+plot(sweep,scores)
