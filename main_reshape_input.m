@@ -1,11 +1,11 @@
 clc
 clear
 close all;
-% path_title='F:\Yilong DATA\';
-% codepath = 'F:\code\DLLR';
+path_title='F:\Yilong DATA\';
+codepath = 'F:\code\DLLR';
 % SUSTC-computer
-path_title='E:\Yilong DATA\';
-codepath = 'E:\Yilong DATA\code\DLLR';
+% path_title='E:\Yilong DATA\';
+% codepath = 'E:\Yilong DATA\code\DLLR';
 
 addpath(genpath(codepath));
 addpath(genpath([path_title 'ESPIRiT']));
@@ -25,7 +25,7 @@ batch_n = (ncalib-batch_size+1)^2;
 calibc_batch_input=zeros(15,4,batch_pixels,batch_n); %[slicenumber masknumber pixel  batchnumber]
 
 tic
-for slice_n=1:1:16
+for slice_n=1:1:17
             gre_kxkyzc=double(gre_kxkyzc);
             [sx,sy,Sn,Nc]=size(gre_kxkyzc);
             DATA = gre_kxkyzc(:,:,slice_n,:);
@@ -57,10 +57,10 @@ size(calibc_batch_input)
 %save('F:\code\DLLR\input_matrix.mat','input_matrix');
 
 % %%
-input_matrix_t=reshape(calibc_batch_input,[batch_n*64   batch_pixels]);
+input_matrix_t=reshape(calibc_batch_input,[batch_n*68   batch_pixels]);
 load([codepath '\DATA\label.mat'])
 %label=label-min(label)+1;
-tr_label=repmat(label(1:64),[batch_n,1]);
+tr_label=repmat(label(1:68),[batch_n,1]);
 % tr=[tr_label real(input_matrix);
 %     tr_label imag(input_matrix)];
 %% Normal
