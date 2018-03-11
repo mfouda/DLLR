@@ -1,11 +1,12 @@
 clc;clear
-imagepath='F:\Yilong DATA\1D mask 2016_Nov_brain\Results Image\';
+imagepath='F:\Yilong DATA\Results Image\'
 addpath(genpath(imagepath)); % image path
-addpath(genpath('E:\Yilong DATA\code\DLLR\stefslon-exportToPPTX')); % exportToPPTX tool path
+addpath(genpath('F:\code\DLLR\stefslon-exportToPPTX')); % exportToPPTX tool path
 fileFolder=fullfile(imagepath);
 dirOutput=dir(fullfile(fileFolder,'*mat'));
 fileNames={dirOutput.name}';
-load fileNames;
+% save([imagepath 'fileNames.mat'],'fileNames')
+% load fileNames;
 %   Example 1: usage of exportToPPTX with blank presentation
 %% Start new presentation
 isOpen  = exportToPPTX();
@@ -23,7 +24,7 @@ exportToPPTX('new','Dimensions',[12 6], ...
 % Additionally background color for all slides can be set as follows:
 % exportToPPTX('new','BackgroundColor',[0.5 0.5 0.5]);
 %% Add some slides
-for i=1:1:544
+for i=1:1:size(fileNames,1)
     imagename_i = fileNames(i);
     I_path=char(strcat(imagepath,imagename_i));
     load(I_path);
@@ -32,8 +33,13 @@ for i=1:1:544
     
     fprintf('Added slide %d\n',slideNum);
     exportToPPTX('addpicture',figH);
-    exportToPPTX('addtext',imagename_i);
-    exportToPPTX('addnote',sprintf('Notes data: slide number %d',slideNum));    
+    str = char(imagename_i);
+%     rank_n=regexpi(str,'(?<=rank_).*?(?=.mat)','match');
+%     rank_T=['rank truncation is ' char(rank_n) '     '];
+    rank_T = str;
+    exportToPPTX('addtext',[rank_T '  Left: Reconstruction error x10, Right: SAKE+ESPIRiT reconstruction']);
+    exportToPPTX('addnote',sprintf('Notes data: slide number %d',slideNum));  
+    
 end
 
 
